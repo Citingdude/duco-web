@@ -21,6 +21,7 @@ export const icons = {
   eyeSlash: import('~base/icons/EyeSlashIcon.vue'),
   facebook: import('~base/icons/FacebookIcon.vue'),
   filterLines: import('~base/icons/FilterLinesIcon.vue'),
+  globe: import('~base/icons/GlobeIcon.vue'),
   instagram: import('~base/icons/InstagramIcon.vue'),
   linkedIn: import('~base/icons/LinkedInIcon.vue'),
   minus: import('~base/icons/MinusIcon.vue'),
@@ -29,6 +30,7 @@ export const icons = {
   search: import('~base/icons/SearchIcon.vue'),
   trash: import('~base/icons/TrashIcon.vue'),
   twitter: import('~base/icons/TwitterIcon.vue'),
+  user: import('~base/icons/UserIcon.vue'),
   warning: import('~base/icons/WarningIcon.vue'),
 } satisfies Record<string, Component>
 
