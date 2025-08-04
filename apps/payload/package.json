@@ -51,13 +51,13 @@
     "zod": "catalog:types"
   },
   "devDependencies": {
-    "@types/body-scroll-lock": "3.1.2",
-    "@types/node": "22.16.5",
-    "@types/react": "19.1.9",
-    "@types/react-dom": "19.1.7",
+    "@types/body-scroll-lock": "catalog:types",
+    "@types/node": "catalog:types",
+    "@types/react": "catalog:types",
+    "@types/react-dom": "catalog:types",
     "@wisemen/eslint-config-vue": "catalog:lint",
     "eslint": "catalog:lint",
-    "eslint-config-next": "15.4.4",
+    "eslint-config-next": "catalog:lint",
     "typescript": "catalog:types"
   }
 }
