@@ -1,7 +1,5 @@
 import path from 'node:path'
 
-import { defineLocalBusiness } from 'nuxt-schema-org/schema'
-
 // TODO: Fill in seo data
 export default defineNuxtConfig({
   alias: {
@@ -18,24 +16,23 @@ export default defineNuxtConfig({
     'nuxt-schema-org',
   ],
   schemaOrg: {
-    identity: defineLocalBusiness({
-      // Basic Information
-      'name': 'Template',
-      '@type': 'EmploymentAgency',
+    identity: {
+      'name': 'Duco Ventilation & Sun Control',
+      '@type': 'LocalBusiness',
       'address': {
         addressCountry: 'Belgium',
-        addressLocality: 'Diepenbeek',
-        addressRegion: 'Flanders',
-        postalCode: '3590',
-        streetAddress: 'Watertorenstraat 2',
+        addressLocality: 'Veurne',
+        addressRegion: 'West Flanders',
+        postalCode: '8630',
+        streetAddress: 'Handelsstraat 19',
       },
-      'logo': '/logo.png',
-      'url': 'https://wisemen.digital',
-    }),
+      'logo': '/logo.svg',
+      'url': 'https://www.duco.eu',
+    },
   },
   site: {
-    title: 'Template',
-    description: 'Fill this in!',
+    title: 'Duco',
+    description: 'Een gezond, comfortabel en energiezuinig binnenklimaat creëren op een natuurlijke manier? DUCO is trendsetter in ventilatie en zonwering. Ontdek ons volledige aanbod! systeem C en D.',
     url: 'https://wisemen.digital',
   },
 
