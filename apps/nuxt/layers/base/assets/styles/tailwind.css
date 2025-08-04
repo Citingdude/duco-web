@@ -352,6 +352,8 @@
   --gap-10xl: var(--spacing-10xl);
   --gap-11xl: var(--spacing-11xl);
 
+  --font-body: dinot;
+
   --font-weight-*: initial;
   --font-weight-regular: 400;
   --font-weight-medium: 500;

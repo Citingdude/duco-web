@@ -16,13 +16,14 @@ export default defineNuxtConfig({
     },
     families: [
       {
-        name: 'Template',
+        name: 'dinot',
         global: true,
         preload: true,
         provider: 'local',
         weights: [
           300,
           400,
+          500,
           700,
         ],
       },
