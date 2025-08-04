@@ -10,6 +10,6 @@ import AppLogo from '~base/components/app/AppLogo.vue'
     }"
     class="focus-ring-white"
   >
-    <AppLogo class="h-12" />
+    <AppLogo class="max-h-4xl h-12 w-auto" />
   </NuxtLinkLocale>
 </template>
