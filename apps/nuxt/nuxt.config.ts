@@ -12,7 +12,6 @@ export default defineNuxtConfig({
     '~root': path.resolve(__dirname, './'),
     '~settings': path.resolve(__dirname, './layers/settings'),
     '~~': path.resolve(__dirname, './disable'),
-
   },
 
   app: {
@@ -41,10 +40,6 @@ export default defineNuxtConfig({
 
   experimental: {
     typedPages: true,
-  },
-
-  future: {
-    compatibilityVersion: 4,
   },
 
   i18n: {
