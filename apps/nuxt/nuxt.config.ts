@@ -16,14 +16,18 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'Nuxt Project Template',
+      title: 'Duco',
       link: [
         { href: '/favicon.ico', rel: 'icon', type: 'image/ico' },
       ],
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { id: 'description', name: 'description', content: '' },
+        {
+          id: 'description',
+          name: 'description',
+          content: 'Een gezond, comfortabel en energiezuinig binnenklimaat creëren op een natuurlijke manier? DUCO is trendsetter in ventilatie en zonwering. Ontdek ons volledige aanbod! systeem C en D.',
+        },
       ],
     },
   },
