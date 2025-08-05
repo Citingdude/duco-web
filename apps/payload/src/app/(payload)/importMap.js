@@ -1,5 +1,4 @@
 import { SlugComponent as SlugComponent_76d8b9e383a7273dae23d14458c914aa } from '@payload/fields/slug/components/SlugComponent'
-import { FieldArrayRowColumnLabel as FieldArrayRowColumnLabel_51900b7c5688a99855d44af186ddc56e } from '@payload/components/fields/FieldArrayRowColumnLabel.tsx'
 import { OverviewComponent as OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaTitleComponent as MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
@@ -14,7 +13,6 @@ import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc056
 
 export const importMap = {
   "@payload/fields/slug/components/SlugComponent#SlugComponent": SlugComponent_76d8b9e383a7273dae23d14458c914aa,
-  "@payload/components/fields/FieldArrayRowColumnLabel.tsx#FieldArrayRowColumnLabel": FieldArrayRowColumnLabel_51900b7c5688a99855d44af186ddc56e,
   "@payloadcms/plugin-seo/client#OverviewComponent": OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#MetaTitleComponent": MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
