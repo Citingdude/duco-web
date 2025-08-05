@@ -10,6 +10,7 @@ import type {
 export const navSorting: Record<string, (CollectionSlug | GlobalSlug)[]> = {
   content: [
     'pages',
+    'references',
   ],
   products: [
     'productTypes',

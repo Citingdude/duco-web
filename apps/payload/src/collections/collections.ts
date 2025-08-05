@@ -4,6 +4,7 @@ import { environmentCollections } from '@payload/collections/environments/enviro
 import { mediaCollections } from '@payload/collections/medias/media.collections'
 import { pageCollections } from '@payload/collections/pages/page.collections'
 import { productCollections } from '@payload/collections/products/product.collections'
+import { referenceCollections } from '@payload/collections/references/reference.collections'
 import { userCollections } from '@payload/collections/users/user.collections'
 
 export default [
@@ -14,4 +15,5 @@ export default [
   ...audienceCollections,
   ...employeeCollections,
   ...environmentCollections,
+  ...referenceCollections,
 ]
