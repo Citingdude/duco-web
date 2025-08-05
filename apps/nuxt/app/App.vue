@@ -23,7 +23,7 @@ const locale = useI18n().locale
 </script>
 
 <template>
-  <div class="font-body flex w-screen flex-1">
+  <div class="font-body">
     <div class="w-full">
       <RekaConfigProvider :use-id="useIdFunction">
         <VcConfigProvider :locale="locale">
