@@ -77,6 +77,7 @@ export interface Config {
     employees: Employee;
     environments: Environment;
     references: Reference;
+    news: News;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -94,6 +95,7 @@ export interface Config {
     employees: EmployeesSelect<false> | EmployeesSelect<true>;
     environments: EnvironmentsSelect<false> | EnvironmentsSelect<true>;
     references: ReferencesSelect<false> | ReferencesSelect<true>;
+    news: NewsSelect<false> | NewsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -409,6 +411,20 @@ export interface Reference {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news".
+ */
+export interface News {
+  id: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  title: string;
+  image: string | Image;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs".
  */
 export interface PayloadJob {
@@ -546,6 +562,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'references';
         value: string | Reference;
+      } | null)
+    | ({
+        relationTo: 'news';
+        value: string | News;
       } | null)
     | ({
         relationTo: 'payload-jobs';
@@ -860,6 +880,19 @@ export interface ReferencesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news_select".
+ */
+export interface NewsSelect<T extends boolean = true> {
+  slug?: T;
+  slugLock?: T;
+  title?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs_select".
  */
 export interface PayloadJobsSelect<T extends boolean = true> {
@@ -1030,6 +1063,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'references';
           value: string | Reference;
+        } | null)
+      | ({
+          relationTo: 'news';
+          value: string | News;
         } | null);
     global?: string | null;
     user?: (string | null) | User;
