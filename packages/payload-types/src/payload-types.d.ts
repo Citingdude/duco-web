@@ -155,7 +155,7 @@ export interface Page {
   title: string;
   slug?: string | null;
   slugLock?: boolean | null;
-  blocks?: (HeroBlock | KpiBlock)[] | null;
+  blocks?: (HeroBlock | KpiBlock | AudienceBlock)[] | null;
   seo?: {
     title?: string | null;
     description?: string | null;
@@ -367,6 +367,57 @@ export interface LinkField {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AudienceBlock".
+ */
+export interface AudienceBlock {
+  title: string;
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  buttons?:
+    | {
+        button: {
+          label: string;
+          ctaVariant?: ('primary' | 'secondary') | null;
+          link: LinkField;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  audienceSegmants?: (string | AudienceSegment)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'audience';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "audienceSegment".
+ */
+export interface AudienceSegment {
+  id: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  title: string;
+  icon: string | Icon;
+  description: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -413,21 +464,6 @@ export interface Address {
   type?: ('billing' | 'shipping')[] | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "audienceSegment".
- */
-export interface AudienceSegment {
-  id: string;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  title: string;
-  icon: string | Icon;
-  description: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -689,6 +725,7 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         hero?: T | HeroBlockSelect<T>;
         kpi?: T | KpiBlockSelect<T>;
+        audience?: T | AudienceBlockSelect<T>;
       };
   seo?:
     | T
@@ -757,6 +794,29 @@ export interface LinkFieldSelect<T extends boolean = true> {
   newTab?: T;
   reference?: T;
   url?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AudienceBlock_select".
+ */
+export interface AudienceBlockSelect<T extends boolean = true> {
+  title?: T;
+  body?: T;
+  buttons?:
+    | T
+    | {
+        button?:
+          | T
+          | {
+              label?: T;
+              ctaVariant?: T;
+              link?: T | LinkFieldSelect<T>;
+            };
+        id?: T;
+      };
+  audienceSegmants?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

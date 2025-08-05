@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BlocksAudience from '@cms/components/blocks/audience/BlocksAudience.vue'
 import BlocksHero from '@cms/components/blocks/hero/BlocksHero.vue'
 import BlocksKpi from '@cms/components/blocks/kpi/BlocksKpi.vue'
 import BlocksRendererError from '@cms/components/blocks/renderer/BlocksRendererError.vue'
@@ -27,6 +28,10 @@ defineProps<Props>()
         />
         <BlocksKpi
           v-else-if="block.blockType === 'kpi'"
+          :block="block"
+        />
+        <BlocksAudience
+          v-else-if="block.blockType === 'audience'"
           :block="block"
         />
         <BlocksRendererNotSupported

@@ -1,5 +1,6 @@
 import { pageSeoTab } from '@payload/collections/pages/page/pageSeo.tab'
 import { pageStructureTab } from '@payload/collections/pages/page/pageStructure.tab'
+import { getEnv } from '@payload/env'
 import { getSlugField } from '@payload/fields/slug/slug.field'
 import type { CollectionConfig } from 'payload'
 
@@ -18,8 +19,12 @@ export const pageCollection: CollectionConfig = {
       'slug',
     ],
     livePreview: {
-      url: ({ data }) => {
-        return `http://localhost:3000/${data.slug}`
+      url: ({ data, locale }) => {
+        if (data.slug === 'home') {
+          return `${getEnv().SITE_BASE_URL}/${locale.code}`
+        }
+
+        return `${getEnv().SITE_BASE_URL}/${locale.code}/${data.slug}`
       },
     },
     useAsTitle: 'title',
