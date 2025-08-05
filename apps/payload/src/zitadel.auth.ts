@@ -4,19 +4,15 @@ import {
   createRemoteJWKSet,
   jwtVerify,
 } from 'jose'
-import type {
-  AuthStrategy,
-  AuthStrategyResult,
-} from 'payload'
+import type { AuthStrategy } from 'payload'
 
-export const USER_NOT_AUTHENTICATED: AuthStrategyResult = {
+export const USER_NOT_AUTHENTICATED = {
   user: null,
 }
 export const zitadalStrategy: AuthStrategy = {
   name: 'zitadel',
   authenticate: async (ctx) => {
     const payload = await getPayload()
-
     const env = getEnv()
 
     const authorizationHeader = ctx.headers.get('Authorization')
@@ -38,12 +34,9 @@ export const zitadalStrategy: AuthStrategy = {
 
       const users = await payload.find({
         collection: 'users',
-        where: {
-          email: {
-            equals: userEmail,
-          },
-        },
+        where: { email: { equals: userEmail } },
       })
+
       const singleUser = users.docs[0]
 
       if (singleUser == null) {
@@ -51,65 +44,33 @@ export const zitadalStrategy: AuthStrategy = {
           collection: 'users',
           limit: 1,
         })
-
-        const existingTenants = await payload.find({
-          collection: 'tenants',
-          limit: 1,
-        })
-
-        let existingTenant = existingTenants.docs[0]
         const isFirstUser = existingUsers.docs.length === 0
-        const isFirstTenant = existingTenant == null
 
-        if (isFirstTenant) {
-          existingTenant = await payload.create({
-            collection: 'tenants',
-            data: {
-              title: 'Global',
-            },
-          })
-        }
-
-        const createdUser = await payload.create({
+        await payload.create({
           collection: 'users',
           data: {
-            darkMode: 'light',
+            darkMode: 'dark',
             email: userEmail,
-            role: isFirstUser ? 'super-admin' : 'user',
-            tenants: [
-              {
-                roles: [
-                  'tenant-admin',
-                ],
-                tenant: existingTenant.id,
-              },
-            ],
+            password: 'idc',
+            role: isFirstUser ? 'admin' : 'user',
           },
         })
-
-        return {
-          user: {
-            ...createdUser,
-            collection: 'users',
-
-          },
-        }
-      }
-
-      if (singleUser.role === 'user') {
-        return USER_NOT_AUTHENTICATED
       }
 
       return {
         user: {
+          id: singleUser.id,
+          createdAt: singleUser.createdAt,
+          updatedAt: singleUser.updatedAt,
           collection: 'users',
-          ...singleUser,
+          darkMode: singleUser.darkMode,
+          email: singleUser.email,
+          role: singleUser.role,
+          username: singleUser.email,
         },
       }
     }
-    catch (error) {
-      console.error(error)
-
+    catch {
       return USER_NOT_AUTHENTICATED
     }
   },
@@ -127,8 +88,14 @@ export const tempZitadalStrategy: AuthStrategy = {
 
     return {
       user: {
-        ...singleUser,
+        id: singleUser.id,
+        createdAt: singleUser.createdAt,
+        updatedAt: singleUser.updatedAt,
         collection: 'users',
+        darkMode: singleUser.darkMode,
+        email: singleUser.email,
+        role: singleUser.role,
+        username: singleUser.email,
       },
     }
   },
