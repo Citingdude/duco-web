@@ -15,6 +15,14 @@ export default withNuxt(
   {
     rules: {
       'ts/explicit-function-return-type': 'off',
+      'vuejs-accessibility/anchor-has-content': [
+        'error',
+        {
+          accessibleChildren: [
+            'LexicalText',
+          ],
+        },
+      ],
     },
   },
 )
