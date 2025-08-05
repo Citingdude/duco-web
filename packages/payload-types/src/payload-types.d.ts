@@ -173,37 +173,42 @@ export interface Page {
  * via the `definition` "HeroBlock".
  */
 export interface HeroBlock {
-  title: string;
-  text: string;
-  ctas?:
-    | {
-        cta: {
-          label: string;
-          ctaVariant?: ('primary' | 'secondary') | null;
-          ctaType?: ('link' | 'event') | null;
-          link?: LinkField;
-          event?: 'some_form' | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
+  subtitle: string;
+  highlightTitle: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   backgroundImage: string | Image;
+  productsTypes?: (string | ProductType)[] | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'hero';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LinkField".
- */
-export interface LinkField {
-  type: 'reference' | 'custom';
-  newTab: boolean;
-  reference?: {
-    relationTo: 'pages';
-    value: string | Page;
-  } | null;
-  url?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -268,6 +273,42 @@ export interface Image {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "productTypes".
+ */
+export interface ProductType {
+  id: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  title: string;
+  icon: string | Icon;
+  description: string;
+  image: string | Image;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "icons".
+ */
+export interface Icon {
+  id: string;
+  alt?: string | null;
+  content?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -314,42 +355,6 @@ export interface Address {
   type?: ('billing' | 'shipping')[] | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "icons".
- */
-export interface Icon {
-  id: string;
-  alt?: string | null;
-  content?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "productTypes".
- */
-export interface ProductType {
-  id: string;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  title: string;
-  icon: string | Icon;
-  description: string;
-  image: string | Image;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -642,35 +647,13 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "HeroBlock_select".
  */
 export interface HeroBlockSelect<T extends boolean = true> {
-  title?: T;
-  text?: T;
-  ctas?:
-    | T
-    | {
-        cta?:
-          | T
-          | {
-              label?: T;
-              ctaVariant?: T;
-              ctaType?: T;
-              link?: T | LinkFieldSelect<T>;
-              event?: T;
-            };
-        id?: T;
-      };
+  subtitle?: T;
+  highlightTitle?: T;
+  body?: T;
   backgroundImage?: T;
+  productsTypes?: T;
   id?: T;
   blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LinkField_select".
- */
-export interface LinkFieldSelect<T extends boolean = true> {
-  type?: T;
-  newTab?: T;
-  reference?: T;
-  url?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

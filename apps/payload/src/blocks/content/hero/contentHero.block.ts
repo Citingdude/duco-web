@@ -1,6 +1,6 @@
 import { BLOCK_GROUPS } from '@payload/blocks/blockGroups'
-import { getCtasField } from '@payload/fields/cta/ctas.field'
 import { getImageField } from '@payload/fields/media/image.field'
+import { getHighlightTitleField } from '@payload/fields/title/highlightTitle.field'
 import type { Block } from 'payload'
 
 export const contentHeroBlock: Block = {
@@ -9,25 +9,29 @@ export const contentHeroBlock: Block = {
   },
   fields: [
     {
-      name: 'title',
+      name: 'subtitle',
       required: true,
       type: 'text',
     },
-    {
-      name: 'text',
+    getHighlightTitleField({
       required: true,
-      type: 'textarea',
-    },
-    getCtasField({
-      name: 'ctas',
-      label: 'CTAs',
-      maxItems: 2,
-      minItems: 0,
     }),
+    {
+      name: 'body',
+      required: true,
+      type: 'richText',
+    },
     getImageField({
       name: 'backgroundImage',
       label: 'Background image',
     }),
+    {
+      hasMany: true,
+      name: 'productsTypes',
+      maxRows: 3,
+      relationTo: 'productTypes',
+      type: 'relationship',
+    },
   ],
   interfaceName: 'HeroBlock',
   labels: {
