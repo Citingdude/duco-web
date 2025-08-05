@@ -74,6 +74,7 @@ export interface Config {
     icons: Icon;
     productTypes: ProductType;
     audienceSegment: AudienceSegment;
+    employees: Employee;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -88,6 +89,7 @@ export interface Config {
     icons: IconsSelect<false> | IconsSelect<true>;
     productTypes: ProductTypesSelect<false> | ProductTypesSelect<true>;
     audienceSegment: AudienceSegmentSelect<false> | AudienceSegmentSelect<true>;
+    employees: EmployeesSelect<false> | EmployeesSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -360,6 +362,19 @@ export interface AudienceSegment {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "employees".
+ */
+export interface Employee {
+  id: string;
+  name: string;
+  image?: (string | null) | Image;
+  role?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs".
  */
 export interface PayloadJob {
@@ -485,6 +500,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'audienceSegment';
         value: string | AudienceSegment;
+      } | null)
+    | ({
+        relationTo: 'employees';
+        value: string | Employee;
       } | null)
     | ({
         relationTo: 'payload-jobs';
@@ -759,6 +778,18 @@ export interface AudienceSegmentSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "employees_select".
+ */
+export interface EmployeesSelect<T extends boolean = true> {
+  name?: T;
+  image?: T;
+  role?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs_select".
  */
 export interface PayloadJobsSelect<T extends boolean = true> {
@@ -917,6 +948,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'audienceSegment';
           value: string | AudienceSegment;
+        } | null)
+      | ({
+          relationTo: 'employees';
+          value: string | Employee;
         } | null);
     global?: string | null;
     user?: (string | null) | User;

@@ -17,6 +17,9 @@ export const navSorting: Record<string, (CollectionSlug | GlobalSlug)[]> = {
   audiences: [
     'audienceSegment',
   ],
+  employees: [
+    'employees',
+  ],
   media: [
     'images',
     'icons',
