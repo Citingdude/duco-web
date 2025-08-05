@@ -20,6 +20,9 @@ export const navSorting: Record<string, (CollectionSlug | GlobalSlug)[]> = {
   employees: [
     'employees',
   ],
+  environments: [
+    'environments',
+  ],
   media: [
     'images',
     'icons',
