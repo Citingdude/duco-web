@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { usePageQuery } from '@cms/api/page/query/usePage.query'
 import { useLivePreview } from '@cms/composables/useLivePreview'
-import NotFoundView from '@cms/views/NotFoundView.vue'
 import PageView from '@cms/views/PageView.vue'
 
-import { NuxtErrorBoundary } from '#components'
 import { getEnv } from '~base/utils/env/getEnv.utils'
 
 const { CMS_BASE_URL } = getEnv()
@@ -60,18 +58,9 @@ useSeoMeta({
 
 <template>
   <div class="w-full">
-    <NuxtErrorBoundary>
-      <PageView
-        v-if="data"
-        :page="data"
-      />
-
-      <NotFoundView v-else />
-      <template #fallback>
-        <div class="flex size-full items-center justify-center">
-          <div class="flex flex-col items-center justify-center" />
-        </div>
-      </template>
-    </NuxtErrorBoundary>
+    <PageView
+      v-if="data"
+      :page="data"
+    />
   </div>
 </template>
