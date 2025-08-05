@@ -4,7 +4,7 @@ import AppHeader from '~/components/header/AppHeader.vue'
 
 <template>
   <div>
-    <div class="flex min-h-screen flex-col">
+    <div class="flex flex-col">
       <AppHeader />
       <div class="flex w-full flex-1 flex-col items-center justify-center">
         <slot />
