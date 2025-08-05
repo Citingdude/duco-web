@@ -1,4 +1,4 @@
-import { productTypeCollection } from '@payload/collections/products/product/product.collection'
+import { productTypeCollection } from '@payload/collections/products/product/productType.collection'
 
 export const productCollections = [
   productTypeCollection,
