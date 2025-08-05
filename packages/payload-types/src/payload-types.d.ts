@@ -7,16 +7,6 @@
  */
 
 /**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ColumnBlocks".
- */
-export type ColumnBlocks =
-  | {
-      block?: (ColumnMultipleTextBlock | ColumnTextCtaBlock)[] | null;
-      id?: string | null;
-    }[]
-  | null;
-/**
  * Supported timezones in IANA format.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -153,7 +143,7 @@ export interface Page {
   title: string;
   slug?: string | null;
   slugLock?: boolean | null;
-  blocks?: (HeroBlock | TextBlock | ColumnBlock | ImageTextBlock | CarouselBlock | BannerBlock)[] | null;
+  blocks?: HeroBlock[] | null;
   seo?: {
     title?: string | null;
     description?: string | null;
@@ -266,141 +256,6 @@ export interface Image {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TextBlock".
- */
-export interface TextBlock {
-  title: string;
-  text: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'text';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ColumnBlock".
- */
-export interface ColumnBlock {
-  columns?: ColumnBlocks;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'column';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ColumnMultipleTextBlock".
- */
-export interface ColumnMultipleTextBlock {
-  texts: {
-    subtitle: string;
-    text: string;
-    id?: string | null;
-  }[];
-  ctas?:
-    | {
-        cta: {
-          label: string;
-          ctaVariant?: ('primary' | 'secondary') | null;
-          ctaType?: ('link' | 'event') | null;
-          link?: LinkField;
-          event?: 'some_form' | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'columnMultipleText';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ColumnTextCtaBlock".
- */
-export interface ColumnTextCtaBlock {
-  title: string;
-  text: string;
-  ctas?:
-    | {
-        cta: {
-          label: string;
-          ctaVariant?: ('primary' | 'secondary') | null;
-          ctaType?: ('link' | 'event') | null;
-          link?: LinkField;
-          event?: 'some_form' | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'columnTextCta';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageTextBlock".
- */
-export interface ImageTextBlock {
-  title: string;
-  text: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'image-text';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CarouselBlock".
- */
-export interface CarouselBlock {
-  images: (string | Image)[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'carousel';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BannerBlock".
- */
-export interface BannerBlock {
-  title: string;
-  text: string;
-  icon: string | Icon;
-  ctas?:
-    | {
-        cta: {
-          label: string;
-          ctaVariant?: ('primary' | 'secondary') | null;
-          ctaType?: ('link' | 'event') | null;
-          link?: LinkField;
-          event?: 'some_form' | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'banner';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "icons".
- */
-export interface Icon {
-  id: string;
-  alt?: string | null;
-  content?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -447,6 +302,26 @@ export interface Address {
   type?: ('billing' | 'shipping')[] | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "icons".
+ */
+export interface Icon {
+  id: string;
+  alt?: string | null;
+  content?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -626,11 +501,6 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         hero?: T | HeroBlockSelect<T>;
-        text?: T | TextBlockSelect<T>;
-        column?: T | ColumnBlockSelect<T>;
-        'image-text'?: T | ImageTextBlockSelect<T>;
-        carousel?: T | CarouselBlockSelect<T>;
-        banner?: T | BannerBlockSelect<T>;
       };
   seo?:
     | T
@@ -677,135 +547,6 @@ export interface LinkFieldSelect<T extends boolean = true> {
   newTab?: T;
   reference?: T;
   url?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TextBlock_select".
- */
-export interface TextBlockSelect<T extends boolean = true> {
-  title?: T;
-  text?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ColumnBlock_select".
- */
-export interface ColumnBlockSelect<T extends boolean = true> {
-  columns?: T | ColumnBlocksSelect<T>;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ColumnBlocks_select".
- */
-export interface ColumnBlocksSelect<T extends boolean = true> {
-  block?:
-    | T
-    | {
-        columnMultipleText?: T | ColumnMultipleTextBlockSelect<T>;
-        columnTextCta?: T | ColumnTextCtaBlockSelect<T>;
-      };
-  id?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ColumnMultipleTextBlock_select".
- */
-export interface ColumnMultipleTextBlockSelect<T extends boolean = true> {
-  texts?:
-    | T
-    | {
-        subtitle?: T;
-        text?: T;
-        id?: T;
-      };
-  ctas?:
-    | T
-    | {
-        cta?:
-          | T
-          | {
-              label?: T;
-              ctaVariant?: T;
-              ctaType?: T;
-              link?: T | LinkFieldSelect<T>;
-              event?: T;
-            };
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ColumnTextCtaBlock_select".
- */
-export interface ColumnTextCtaBlockSelect<T extends boolean = true> {
-  title?: T;
-  text?: T;
-  ctas?:
-    | T
-    | {
-        cta?:
-          | T
-          | {
-              label?: T;
-              ctaVariant?: T;
-              ctaType?: T;
-              link?: T | LinkFieldSelect<T>;
-              event?: T;
-            };
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageTextBlock_select".
- */
-export interface ImageTextBlockSelect<T extends boolean = true> {
-  title?: T;
-  text?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CarouselBlock_select".
- */
-export interface CarouselBlockSelect<T extends boolean = true> {
-  images?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BannerBlock_select".
- */
-export interface BannerBlockSelect<T extends boolean = true> {
-  title?: T;
-  text?: T;
-  icon?: T;
-  ctas?:
-    | T
-    | {
-        cta?:
-          | T
-          | {
-              label?: T;
-              ctaVariant?: T;
-              ctaType?: T;
-              link?: T | LinkFieldSelect<T>;
-              event?: T;
-            };
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
