@@ -16,6 +16,7 @@ ARG BUILD_TIMESTAMP
 WORKDIR /app
 COPY package.json pnpm-*.yaml .npmrc ./
 COPY --parents apps/**/package.json ./
+COPY --parents packages/**/package.json ./ 
 
 #
 # --- Stage: build-nuxt ---
