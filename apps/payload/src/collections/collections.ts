@@ -1,3 +1,4 @@
+import { audienceCollections } from '@payload/collections/audience/audience.collections'
 import { mediaCollections } from '@payload/collections/medias/media.collections'
 import { pageCollections } from '@payload/collections/pages/page.collections'
 import { productCollections } from '@payload/collections/products/product.collections'
@@ -8,4 +9,5 @@ export default [
   ...userCollections,
   ...mediaCollections,
   ...productCollections,
+  ...audienceCollections,
 ]

@@ -14,6 +14,9 @@ export const navSorting: Record<string, (CollectionSlug | GlobalSlug)[]> = {
   products: [
     'productTypes',
   ],
+  audiences: [
+    'audienceSegment',
+  ],
   media: [
     'images',
     'icons',
