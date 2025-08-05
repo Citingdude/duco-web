@@ -155,7 +155,7 @@ export interface Page {
   title: string;
   slug?: string | null;
   slugLock?: boolean | null;
-  blocks?: HeroBlock[] | null;
+  blocks?: (HeroBlock | KpiBlock)[] | null;
   seo?: {
     title?: string | null;
     description?: string | null;
@@ -306,6 +306,64 @@ export interface Icon {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "KpiBlock".
+ */
+export interface KpiBlock {
+  title: string;
+  buttons?:
+    | {
+        button: {
+          label: string;
+          ctaVariant?: ('primary' | 'secondary') | null;
+          link: LinkField;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  kpiItems?:
+    | {
+        kpi: {
+          title: string;
+          value: string;
+          subtitle: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'kpi';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkField".
+ */
+export interface LinkField {
+  type: 'reference' | 'custom';
+  newTab: boolean;
+  reference?: {
+    relationTo: 'pages';
+    value: string | Page;
+  } | null;
+  url?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -630,6 +688,7 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         hero?: T | HeroBlockSelect<T>;
+        kpi?: T | KpiBlockSelect<T>;
       };
   seo?:
     | T
@@ -654,6 +713,50 @@ export interface HeroBlockSelect<T extends boolean = true> {
   productsTypes?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "KpiBlock_select".
+ */
+export interface KpiBlockSelect<T extends boolean = true> {
+  title?: T;
+  buttons?:
+    | T
+    | {
+        button?:
+          | T
+          | {
+              label?: T;
+              ctaVariant?: T;
+              link?: T | LinkFieldSelect<T>;
+            };
+        id?: T;
+      };
+  kpiItems?:
+    | T
+    | {
+        kpi?:
+          | T
+          | {
+              title?: T;
+              value?: T;
+              subtitle?: T;
+            };
+        id?: T;
+      };
+  body?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkField_select".
+ */
+export interface LinkFieldSelect<T extends boolean = true> {
+  type?: T;
+  newTab?: T;
+  reference?: T;
+  url?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

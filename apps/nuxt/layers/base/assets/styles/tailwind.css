@@ -259,6 +259,10 @@
   /* 32px */
   --leading-display-sm: 2.375rem;
   /* 38px */
+  --leading-display-md: 3rem;
+  /* 48px */
+  --leading-display-xl: 4rem;
+  /* 64px */
   --leading-4xl: 2.75rem;
   /* 44px */
   --leading-full: 100%;
@@ -292,6 +296,12 @@
   /* 30px */
   --text-display-sm--line-height:
     var(--line-height-display-sm);
+  --text-display-md: 2.5rem;
+    /* 40px */
+  --text-display-md--line-height: var(--leading-display-md);
+  --text-display-xl: 2.5rem;
+    /* 60px */
+  --text-display-xl--line-height: var(--leading-display-xl);
   --text-4xl: 2.25rem;
   /* 36px */
   --text-4xl--line-height:

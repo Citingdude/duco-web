@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import BlocksColumn from '@cms/components/blocks/column/BlocksColumn.vue'
 import BlocksHero from '@cms/components/blocks/hero/BlocksHero.vue'
-import BlocksHubspotForm from '@cms/components/blocks/hubspot/BlocksHubspotForm.vue'
+import BlocksKpi from '@cms/components/blocks/kpi/BlocksKpi.vue'
 import BlocksRendererError from '@cms/components/blocks/renderer/BlocksRendererError.vue'
 import BlocksRendererNotSupported from '@cms/components/blocks/renderer/BlocksRendererNotSupported.vue'
 import type { Page } from '@repo/payload-types'
@@ -16,7 +15,7 @@ defineProps<Props>()
 </script>
 
 <template>
-  <div class="flex flex-col gap-4">
+  <div class="flex flex-col">
     <template
       v-for="(block) in blocks"
       :key="JSON.stringify(block)"
@@ -26,12 +25,8 @@ defineProps<Props>()
           v-if="block.blockType === 'hero'"
           :block="block"
         />
-        <BlocksColumn
-          v-else-if="block.blockType === 'column'"
-          :block="block"
-        />
-        <BlocksHubspotForm
-          v-else-if="block.blockType === 'hubspot-form'"
+        <BlocksKpi
+          v-else-if="block.blockType === 'kpi'"
           :block="block"
         />
         <BlocksRendererNotSupported

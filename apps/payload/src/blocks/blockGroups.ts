@@ -1,4 +1,8 @@
 export const BLOCK_GROUPS = {
+  content: {
+    en: 'Content',
+    nl: 'Content',
+  },
   form: {
     en: 'Form',
     nl: 'Formulier',
