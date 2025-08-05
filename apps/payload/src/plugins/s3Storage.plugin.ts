@@ -21,5 +21,6 @@ export function pluginStorage() {
       region: env.S3_REGION as string,
     },
     enabled: env.ENVIRONMENT !== 'local',
+    signedDownloads: true,
   })
 }

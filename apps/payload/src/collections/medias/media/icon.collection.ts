@@ -14,6 +14,7 @@ export const iconCollection: CollectionConfig = {
   fields: [
     {
       name: 'alt',
+      localized: true,
       type: 'text',
     },
     {

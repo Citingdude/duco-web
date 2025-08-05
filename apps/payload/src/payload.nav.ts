@@ -10,10 +10,6 @@ import type {
 export const navSorting: Record<string, (CollectionSlug | GlobalSlug)[]> = {
   content: [
     'pages',
-    'blogs',
-  ],
-  forms: [
-    'form-hubspot',
   ],
   media: [
     'images',
@@ -25,7 +21,6 @@ export const navSorting: Record<string, (CollectionSlug | GlobalSlug)[]> = {
   ],
   settings: [
     'settings',
-    'tenants',
   ],
 }
 

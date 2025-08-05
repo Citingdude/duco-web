@@ -5,6 +5,7 @@ export const imageCollection: CollectionConfig = {
   fields: [
     {
       name: 'alt',
+      localized: true,
       type: 'text',
     },
   ],

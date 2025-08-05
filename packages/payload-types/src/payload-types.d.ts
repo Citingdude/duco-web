@@ -78,13 +78,10 @@ export interface Config {
   blocks: {};
   collections: {
     pages: Page;
-    'form-hubspot': FormHubspot;
     users: User;
     addresses: Address;
     images: Image;
     icons: Icon;
-    tenants: Tenant;
-    blogs: Blog;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -93,13 +90,10 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
-    'form-hubspot': FormHubspotSelect<false> | FormHubspotSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     addresses: AddressesSelect<false> | AddressesSelect<true>;
     images: ImagesSelect<false> | ImagesSelect<true>;
     icons: IconsSelect<false> | IconsSelect<true>;
-    tenants: TenantsSelect<false> | TenantsSelect<true>;
-    blogs: BlogsSelect<false> | BlogsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -159,9 +153,7 @@ export interface Page {
   title: string;
   slug?: string | null;
   slugLock?: boolean | null;
-  blocks?:
-    | (HeroBlock | TextBlock | ColumnBlock | HubspotFormBlock | ImageTextBlock | CarouselBlock | BannerBlock)[]
-    | null;
+  blocks?: (HeroBlock | TextBlock | ColumnBlock | ImageTextBlock | CarouselBlock | BannerBlock)[] | null;
   seo?: {
     title?: string | null;
     description?: string | null;
@@ -344,27 +336,6 @@ export interface ColumnTextCtaBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HubspotFormBlock".
- */
-export interface HubspotFormBlock {
-  hubspotForm: string | FormHubspot;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'hubspot-form';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "form-hubspot".
- */
-export interface FormHubspot {
-  id: string;
-  title: string;
-  formId: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ImageTextBlock".
  */
 export interface ImageTextBlock {
@@ -440,15 +411,22 @@ export interface User {
   addresses?: (string | Address)[] | null;
   darkMode: 'dark' | 'light' | 'system';
   role: 'super-admin' | 'user' | 'admin' | 'editor';
-  tenants?:
-    | {
-        tenant: string | Tenant;
-        roles: ('tenant-admin' | 'tenant-viewer')[];
-        id?: string | null;
-      }[]
-    | null;
   updatedAt: string;
   createdAt: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -467,43 +445,6 @@ export interface Address {
   email?: string | null;
   phone?: string | null;
   type?: ('billing' | 'shipping')[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tenants".
- */
-export interface Tenant {
-  id: string;
-  title: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "blogs".
- */
-export interface Blog {
-  id: string;
-  tenant?: (string | null) | Tenant;
-  title: string;
-  slug: string;
-  blog: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
   updatedAt: string;
   createdAt: string;
 }
@@ -612,10 +553,6 @@ export interface PayloadLockedDocument {
         value: string | Page;
       } | null)
     | ({
-        relationTo: 'form-hubspot';
-        value: string | FormHubspot;
-      } | null)
-    | ({
         relationTo: 'users';
         value: string | User;
       } | null)
@@ -630,14 +567,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'icons';
         value: string | Icon;
-      } | null)
-    | ({
-        relationTo: 'tenants';
-        value: string | Tenant;
-      } | null)
-    | ({
-        relationTo: 'blogs';
-        value: string | Blog;
       } | null)
     | ({
         relationTo: 'payload-jobs';
@@ -699,7 +628,6 @@ export interface PagesSelect<T extends boolean = true> {
         hero?: T | HeroBlockSelect<T>;
         text?: T | TextBlockSelect<T>;
         column?: T | ColumnBlockSelect<T>;
-        'hubspot-form'?: T | HubspotFormBlockSelect<T>;
         'image-text'?: T | ImageTextBlockSelect<T>;
         carousel?: T | CarouselBlockSelect<T>;
         banner?: T | BannerBlockSelect<T>;
@@ -837,15 +765,6 @@ export interface ColumnTextCtaBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HubspotFormBlock_select".
- */
-export interface HubspotFormBlockSelect<T extends boolean = true> {
-  hubspotForm?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ImageTextBlock_select".
  */
 export interface ImageTextBlockSelect<T extends boolean = true> {
@@ -890,16 +809,6 @@ export interface BannerBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "form-hubspot_select".
- */
-export interface FormHubspotSelect<T extends boolean = true> {
-  title?: T;
-  formId?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -909,15 +818,21 @@ export interface UsersSelect<T extends boolean = true> {
   addresses?: T;
   darkMode?: T;
   role?: T;
-  tenants?:
-    | T
-    | {
-        tenant?: T;
-        roles?: T;
-        id?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1028,27 +943,6 @@ export interface IconsSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tenants_select".
- */
-export interface TenantsSelect<T extends boolean = true> {
-  title?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "blogs_select".
- */
-export interface BlogsSelect<T extends boolean = true> {
-  tenant?: T;
-  title?: T;
-  slug?: T;
-  blog?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
